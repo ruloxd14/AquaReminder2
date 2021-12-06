@@ -35,6 +35,14 @@ class MainActivity : AppCompatActivity() {
     var total: Int = 0
     var totalS: String? = "total"
     var agua: Int = 0
+
+    val date = Date()
+    val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
+    val dateFormatDay: DateFormat = SimpleDateFormat("dd")
+    val diaActual = dateFormatDay.format(date)
+    val fechaActual = dateFormat.format(date)
+    val stringFechaActual: String = diaActual
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         }*/
         //aguasumatoria.setText("0 / 2000 ml")
 
+        actualizarConsumo()
+        
         iv_vaso_cantidad.setOnClickListener {
             val popMenu = PopupMenu(this, iv_vaso_cantidad)
             popMenu.menuInflater.inflate(R.menu.menu_recipiente, popMenu.menu)
@@ -151,19 +161,30 @@ class MainActivity : AppCompatActivity() {
                 handler
                 handler.postDelayed(this, 1000)
                 try {
-                    val date = Date()
+
                    // val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
                     //val dt = SimpleDateFormat("yyyy-MM-dd")
                     //val stringdate: String = dt.format(newDate)
                     //println("Submission Date: $stringdate")
+                    //val calendar = Calendar.getInstance()
+                    //calendar.setTime(date)
+                    //val dia: String = calendar.add(Calendar.DAY_OF_YEAR, 1).toString()
+                    var aux : Int = 0
+                    //obtencion de la fecha de Firebase
+                    val fechaCom = FirebaseDatabase.getInstance().reference.child("Consumo").child("fecha")
+                    //comparacion entre la fecha que guardada con la fecha actual
+                    if(fechaCom == dateFormat){
+                        //si es el mismo dia solo actualiza la cantidad
+                        ActualizarFirebaseDiaActual()
+                    }else{
+                        //si la fecha es diferente la tabla guardara un nuevo dia
+                        val databaseReference: DatabaseReference =
+                            FirebaseDatabase.getInstance().getReference().child("Consumo " + "$stringFechaActual")
+                        databaseReference.child("cantidad").setValue("$total")
+                        databaseReference.child("fecha").setValue(fechaActual)
+                    }
 
-                    val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-                    val strDate: String = dateFormat.format(date).toString()
 
-                    val databaseReference: DatabaseReference =
-                        FirebaseDatabase.getInstance().getReference().child("Consumo")
-                    databaseReference.child("cantidad").setValue("$total")
-                    databaseReference.child("fecha").setValue(strDate)
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -172,5 +193,17 @@ class MainActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable, 1 * 1000)
     }
+    fun ActualizarFirebaseDiaActual(){
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference().child("Consumo ")
+        databaseReference.child("cantidad").setValue("$total")
+    }
+    fun actualizarConsumo(){
+        if(aguasumatoria!=null){
+        val consumoFirebase = FirebaseDatabase.getInstance().reference.child("Consumo").child("cantidad")
+        aguasumatoria.setText("$consumoFirebase / 2000 ml")
+        }
+    }
+
 
 }

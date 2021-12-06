@@ -18,12 +18,12 @@ class DashboardActivity : AppCompatActivity() {
         menu()
 
         val entradas: ArrayList<Consumo> = ArrayList()
-        entradas.add(Consumo(500, "2021/11/25"))
+        /*entradas.add(Consumo(500, "2021/11/25"))
         entradas.add(Consumo(600, "2021/11/26"))
         entradas.add(Consumo(1000, "2021/11/27"))
         entradas.add(Consumo(1250, "2021/11/28"))
         entradas.add(Consumo(750, "2021/11/29"))
-        entradas.add(Consumo(900, "2021/11/30"))
+        entradas.add(Consumo(900, "2021/11/30"))*/
 
         //val dataset = BarDataSet(entradas, "ml de consumo")
 
