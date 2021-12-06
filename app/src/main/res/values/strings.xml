@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">AquaReminder2</string>
+    <string name="registro">Registro</string>
+    <string name="inicio">Iniciar Sesion</string>
+    <string name="correo">Correo</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="contraseñacon">Confirmar Contraseña</string>
+    <string name="registrarse">Registrase</string>
+    <string name="Olvidar"><u>Olvidé mi contraseña</u></string>
+    <string name="notienes">No tienes una <b>cuenta</b>?</string>
+    <string name="consumo">Consumo de agua</string>
+    <string name="historial">Historial</string>
+    <string name="perfil">Perfil</string>
+    <string name="consumoagua">Consumo de agua de hoy</string>
+    <string name="descriphistorial">Esta es una grafica en la cual demuestra su consumo de agua</string>
+    <string name="config">Configuraciones</string>
+    <string name="uni">Unidades</string>
+    <string name="idio">idioma</string>
+    <string name="dato">Datos Personales</string>
+    <string name="Reci">Recipiente</string>
+    <string name="cerrar">Cerrar Sesión</string>
+    <string name="recordar">Olvidé mi contraseña</string>
+    <string name="restablecer">Restablecer contraseña</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="conteo">Su conteo de agua sera de</string>
+    <string name="vm">Vaso Mini</string>
+    <string name="vn">Vaso Normal</string>
+    <string name="bote">Botella</string>
+    <string name="boteper">Botella Personal</string>
+    <string name="acerca">Acerca de</string>
+
+</resources>

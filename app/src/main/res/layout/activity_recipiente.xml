@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bluemid"
+    android:orientation="vertical"
+    tools:context=".RecipienteActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Recipiente"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/ib_vasomini"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:backgroundTint="@color/bluelow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/vasonormal" />
+
+                <ImageButton
+                    android:id="@+id/ib_vaso"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:backgroundTint="@color/bluelow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/vasogrande" />
+            </TableRow>
+
+            <TableRow>
+
+                <ImageButton
+                    android:id="@+id/ib_botella"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:backgroundTint="@color/bluelow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/botella" />
+
+                <ImageButton
+                    android:id="@+id/ib_botellapersonal"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:backgroundTint="@color/bluelow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/botellapersonal" />
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_recipiente_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/conteo"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_recipiente_cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btn_recipiente_confirmar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/rounded_corner"
+            android:text="@string/confirmar" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

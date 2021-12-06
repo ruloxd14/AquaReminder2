@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227789762578",
+    "project_id": "aquareminder2-1638339650710",
+    "storage_bucket": "aquareminder2-1638339650710.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227789762578:android:eb9675d111a339239168cb",
+        "android_client_info": {
+          "package_name": "molina.raul.aquareminder2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227789762578-dbfok4gb4i8g9ldo19k4m6pvc189dbcf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD3L1o3JpBOCLWWkJLcD22NyutWaHNaX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227789762578-dbfok4gb4i8g9ldo19k4m6pvc189dbcf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
