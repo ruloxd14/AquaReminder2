@@ -13,14 +13,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 import molina.raul.aquareminder2.R
 import android.annotation.SuppressLint
 import android.os.Handler
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import molina.raul.aquareminder2.Consumo
 import java.lang.Exception
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    //private lateinit var database: DatabaseReference
+
     //var ISO_8601_FORMAT = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'")
     //var now = ISO_8601_FORMAT.format(Date())
     var cuenta: Int = 0
@@ -144,14 +152,18 @@ class MainActivity : AppCompatActivity() {
                 handler.postDelayed(this, 1000)
                 try {
                     val date = Date()
-                    val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
-                    //val newDate = Date(now)
-                    val dt = SimpleDateFormat("yyyy-MM-dd")
-                    val stringdate: String = dt.format(newDate)
+                   // val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
+                    //val dt = SimpleDateFormat("yyyy-MM-dd")
+                    //val stringdate: String = dt.format(newDate)
                     //println("Submission Date: $stringdate")
-                    val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference().child("Consumo")
-                    databaseReference.child("cantidad").setValue(total)
-                    databaseReference.child("fecha").setValue(stringdate)
+
+                    val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
+                    val strDate: String = dateFormat.format(date).toString()
+
+                    val databaseReference: DatabaseReference =
+                        FirebaseDatabase.getInstance().getReference().child("Consumo")
+                    databaseReference.child("cantidad").setValue("$total")
+                    databaseReference.child("fecha").setValue(strDate)
 
                 } catch (e: Exception) {
                     e.printStackTrace()
