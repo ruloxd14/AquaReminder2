@@ -37,9 +37,11 @@
             android:layout_height="300dp"
             android:src="@drawable/grafico"/>-->
         <com.jjoe64.graphview.GraphView
-            android:layout_width="match_parent"
-            android:layout_height="200dip"
+            android:layout_width="340dp"
+            android:layout_height="300dp"
             android:id="@+id/graph"
+            android:layout_gravity="center"
+            android:background="@color/bluedeep"
             android:layout_marginTop="30dp"/>
 
 

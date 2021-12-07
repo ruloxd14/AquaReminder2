@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         //aguasumatoria.setText("0 / 2000 ml")
 
         actualizarConsumo()
-        
+
         iv_vaso_cantidad.setOnClickListener {
             val popMenu = PopupMenu(this, iv_vaso_cantidad)
             popMenu.menuInflater.inflate(R.menu.menu_recipiente, popMenu.menu)
@@ -161,15 +161,15 @@ class MainActivity : AppCompatActivity() {
                 handler
                 handler.postDelayed(this, 1000)
                 try {
-
-                   // val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
+                   /* val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
                     //val dt = SimpleDateFormat("yyyy-MM-dd")
                     //val stringdate: String = dt.format(newDate)
                     //println("Submission Date: $stringdate")
                     //val calendar = Calendar.getInstance()
                     //calendar.setTime(date)
                     //val dia: String = calendar.add(Calendar.DAY_OF_YEAR, 1).toString()
-                    var aux : Int = 0
+                    var aux : Int = 0*/
+
                     //obtencion de la fecha de Firebase
                     val fechaCom = FirebaseDatabase.getInstance().reference.child("Consumo").child("fecha")
                     //comparacion entre la fecha que guardada con la fecha actual
@@ -184,8 +184,6 @@ class MainActivity : AppCompatActivity() {
                         databaseReference.child("fecha").setValue(fechaActual)
                     }
 
-
-
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -199,10 +197,8 @@ class MainActivity : AppCompatActivity() {
         databaseReference.child("cantidad").setValue("$total")
     }
     fun actualizarConsumo(){
-        if(aguasumatoria!=null){
         val consumoFirebase = FirebaseDatabase.getInstance().reference.child("Consumo").child("cantidad")
         aguasumatoria.setText("$consumoFirebase / 2000 ml")
-        }
     }
 
 
