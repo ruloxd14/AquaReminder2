@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_about.*
+import molina.raul.aquareminder2.DatosPersonalesActivity
 import molina.raul.aquareminder2.InicioSesionActivity
 import molina.raul.aquareminder2.R
 import molina.raul.aquareminder2.RecipienteActivity
 
 class AboutActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
@@ -31,7 +33,8 @@ class AboutActivity : AppCompatActivity() {
 
         }
         btn_datos_per.setOnClickListener {
-
+            val intent = Intent(this, DatosPersonalesActivity::class.java)
+            startActivity(intent)
         }
        /* btn_recipientes.setOnClickListener {
             val intent = Intent(this, RecipienteActivity::class.java)

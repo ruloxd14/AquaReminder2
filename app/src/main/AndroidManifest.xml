@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AquaReminder2">
         <activity
+            android:name=".DatosPersonalesActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecuperarActivity"
             android:exported="false" />
         <activity
@@ -36,11 +39,14 @@
         <activity
             android:name=".menu.MainActivity"
             android:exported="false">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 

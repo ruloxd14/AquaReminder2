@@ -13,7 +13,7 @@ import molina.raul.aquareminder2.menu.AboutActivity;
 import molina.raul.aquareminder2.menu.DashboardActivity;
 
 public class converter extends AppCompatActivity {
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -23,23 +23,36 @@ public class converter extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.dashboard:
                         startActivity(new Intent(getApplicationContext()
-                        , DashboardActivity.class));
-                        overridePendingTransition(0,0);
+                                , DashboardActivity.class));
+                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.home:
                         return true;
                     case R.id.about:
                         startActivity(new Intent(getApplicationContext()
                                 , AboutActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;
             }
         });
+
+        /*@Override public void onCreate (Bundle bundle){
+            super.onCreate(bundle);
+            setContentView(R.layout.pantalla);
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                return;
+            }
+            int res = extras.getInt("resourseInt");
+            ImageView view = (ImageView) findViewById(R.id.something);
+            view.setImageResourse(res);
+        }*/
+
 
     }
 }
