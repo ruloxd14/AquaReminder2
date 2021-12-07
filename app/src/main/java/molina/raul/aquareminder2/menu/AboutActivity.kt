@@ -3,6 +3,10 @@ package molina.raul.aquareminder2.menu
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_about.*
 import molina.raul.aquareminder2.DatosPersonalesActivity
@@ -11,6 +15,7 @@ import molina.raul.aquareminder2.R
 import molina.raul.aquareminder2.RecipienteActivity
 
 class AboutActivity : AppCompatActivity() {
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +46,11 @@ class AboutActivity : AppCompatActivity() {
             startActivity(intent)
         }*/
         btn_cerrar_sesion.setOnClickListener {
-            /*val intent = Intent(this, InicioSesionActivity::class.java)
-            startActivity(intent)*/
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            mGoogleSignInClient.signOut()
             finish()
+            val intent = Intent(this, InicioSesionActivity::class.java)
+            startActivity(intent)
+
         }
 
 
@@ -83,6 +89,9 @@ class AboutActivity : AppCompatActivity() {
             false
         })
     }
+
+
+
     /*fun nombreperfil(){
         val bundle = intent.extras
         if (bundle != null) {

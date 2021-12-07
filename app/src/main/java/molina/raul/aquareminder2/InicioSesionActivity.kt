@@ -153,7 +153,7 @@ class InicioSesionActivity : AppCompatActivity() {
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
-            val intent = Intent(this, AboutActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("name", account.displayName)
             intent.putExtra("email", account.email)
             intent.putExtra("photo", account.photoUrl)
