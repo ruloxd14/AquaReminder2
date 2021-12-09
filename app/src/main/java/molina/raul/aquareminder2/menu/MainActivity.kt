@@ -107,8 +107,6 @@ class MainActivity : AppCompatActivity() {
             storeDatetoFirebase()
         }
 
-
-
     }
 
     fun menu() {
@@ -309,7 +307,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun actualizarRecipiente(){
+    fun actualizarRecipiente() {
         val databaseReference: DatabaseReference =
             FirebaseDatabase.getInstance().getReference()
                 .child("Consumo " + "$stringFechaActual")
