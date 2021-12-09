@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     var recipiente: String? = ""
     var agua: Int = 0
     var cantidad: String = ""
+    //var cantidadint: Int = 0
 
     var fdb = FirebaseDatabase.getInstance().getReference()
 
@@ -57,17 +58,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         menu()
-
-        /*val bundle = intent.extras
-        if (bundle != null) {
-            var valor = bundle.getInt("cantidad")
-            aguasumatoria.setText("$valor / 2000 ml")
-            cuenta = valor
-            Toast.makeText(this, "$valor", Toast.LENGTH_SHORT).show()
-        }*/
-        //aguasumatoria.setText("0 / 2000 ml")
-
         actualizarConsumo()
+
         Toast.makeText(this, "Bienvenido ✌✌", Toast.LENGTH_SHORT).show()
 
         iv_vaso_cantidad.setOnClickListener {
@@ -79,18 +71,22 @@ class MainActivity : AppCompatActivity() {
                         R.id.menu_vaso_mini -> {
                             agua = 150
                             aguaselecionada.text = "$agua ml"
+                            actualizarRecipiente()
                         }
                         R.id.menu_vaso_normal -> {
                             agua = 250
                             aguaselecionada.text = "$agua ml"
+                            actualizarRecipiente()
                         }
                         R.id.menu_botella -> {
                             agua = 600
                             aguaselecionada.text = "$agua ml"
+                            actualizarRecipiente()
                         }
                         R.id.menu_botella_personal -> {
                             agua = 1000
                             aguaselecionada.text = "$agua ml"
+                            actualizarRecipiente()
                         }
                     }
                     return true
@@ -101,15 +97,18 @@ class MainActivity : AppCompatActivity() {
         }
         botonagregar.setOnClickListener {
             var cantidadint = Integer.parseInt(cantidad)
+            var recipienteint = Integer.parseInt(recipiente)
             //cuenta += agua
-            cantidadint += agua
+            cantidadint += recipienteint
             //resta el excedente xd
-            total = (cantidadint + agua) - agua
+            total = (cantidadint + recipienteint) - recipienteint
             aguasumatoria.setText("$total / 3700 ml")
-
+            actualizarVaso()
             storeDatetoFirebase()
         }
-        actualizarVaso()
+
+
+
     }
 
     fun menu() {
@@ -199,6 +198,7 @@ class MainActivity : AppCompatActivity() {
                                 .child("Consumo " + "$stringFechaActual")
                         databaseReference.child("cantidad").setValue("$total")
                         databaseReference.child("fecha").setValue(fechaActual)
+                        //databaseReference.child("recipiente").setValue(agua)
                     }
 
                 } catch (e: Exception) {
@@ -221,17 +221,55 @@ class MainActivity : AppCompatActivity() {
                 if (snapshot.exists()) {
                     //val canti = snapshot.child("cantidad").value.toString()
                     cantidad = snapshot.child("cantidad").value.toString()
+                    recipiente = snapshot.child("recipiente").value.toString()
+                    aguaselecionada.setText(recipiente + " ml")
                     aguasumatoria.setText(cantidad + " / 3700 ml")
+
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {}
         })
 
-
     }
 
-    fun actualizarVaso(){
-        when(total >= 0) {
+    fun actualizarVaso() {
+        if (total >= 528.58) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v1)
+            Toast.makeText(this, "Muy bien", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 1057.16) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v2)
+            Toast.makeText(this, "Sigue así", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 1585.74) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v3)
+            Toast.makeText(this, "Vamos", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 2114.32) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v4)
+            Toast.makeText(this, "Sigue así", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 2642.9) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v5)
+            Toast.makeText(this, "Muy bien", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 3171.48) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v6)
+            Toast.makeText(this, "Un poco mas", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 3550) {
+            iv_vaso_cantidad.setImageResource(R.drawable.v7)
+            Toast.makeText(this, "Ya casi", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 3700) {
+            iv_vaso_cantidad.setImageResource(R.drawable.vll)
+            Toast.makeText(this, "Excelente", Toast.LENGTH_SHORT).show()
+        }
+        if (total >= 4000) {
+            Toast.makeText(this, "Cuidado", Toast.LENGTH_SHORT).show()
+        }
+        /*when(total >= 0) {
             total >= 528.58 -> {
                 iv_vaso_cantidad.setImageResource(R.drawable.v1)
                 Toast.makeText(this, "Muy bien", Toast.LENGTH_SHORT).show()
@@ -267,8 +305,15 @@ class MainActivity : AppCompatActivity() {
             total > 4000 -> {
                 Toast.makeText(this, "Cuidado", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
 
+    }
+
+    fun actualizarRecipiente(){
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference()
+                .child("Consumo " + "$stringFechaActual")
+        databaseReference.child("recipiente").setValue(agua)
     }
 
 }
