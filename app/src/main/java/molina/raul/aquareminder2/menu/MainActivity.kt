@@ -39,8 +39,10 @@ class MainActivity : AppCompatActivity() {
     //var now = ISO_8601_FORMAT.format(Date())
     var cuenta: Int = 0
     var total: Int = 0
-    var totalS: String? = "total"
+    var recipiente: String? = ""
     var agua: Int = 0
+    var cantidad: String = ""
+
     var fdb = FirebaseDatabase.getInstance().getReference()
 
     val date = Date()
@@ -66,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         //aguasumatoria.setText("0 / 2000 ml")
 
         actualizarConsumo()
-        Toast.makeText(this, path, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Bienvenido ✌✌", Toast.LENGTH_SHORT).show()
 
         iv_vaso_cantidad.setOnClickListener {
             val popMenu = PopupMenu(this, iv_vaso_cantidad)
@@ -98,15 +100,16 @@ class MainActivity : AppCompatActivity() {
             popMenu.show()
         }
         botonagregar.setOnClickListener {
-            cuenta += agua
+            var cantidadint = Integer.parseInt(cantidad)
+            //cuenta += agua
+            cantidadint += agua
             //resta el excedente xd
-            total = (cuenta + agua) - agua
+            total = (cantidadint + agua) - agua
             aguasumatoria.setText("$total / 3700 ml")
 
-            actualizarVaso()
             storeDatetoFirebase()
         }
-
+        actualizarVaso()
     }
 
     fun menu() {
@@ -146,11 +149,11 @@ class MainActivity : AppCompatActivity() {
         val sharedPref2 = this?.getPreferences(Context.MODE_PRIVATE) ?: return
         val editor = sharedPref2.edit()
 
-        totalS = aguasumatoria.text.toString()
+        recipiente = aguaselecionada.text.toString()
 
-        editor.putInt("cuenta", cuenta)
-        editor.putInt("total", total)
         editor.putInt("agua", agua)
+        //editor.putInt("total", total)
+        //editor.putInt("agua", agua)
         //reemplazando commit()
         editor.apply()
 
@@ -159,10 +162,10 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE)
-        cuenta = sharedPref.getInt("cuenta", 0)
-        total = sharedPref.getInt("total", 0)
+        //cuenta = sharedPref.getInt("cuenta", 0)
+        //total = sharedPref.getInt("total", 0)
         agua = sharedPref.getInt("agua", 0)
-        aguasumatoria.setText("$total")
+        //aguasumatoria.setText("$total")
         aguaselecionada.setText("$agua")
     }
 
@@ -216,8 +219,9 @@ class MainActivity : AppCompatActivity() {
         fdb.child(path).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    val canti = snapshot.child("cantidad").value.toString()
-                    aguasumatoria.setText(canti + " / 3700ml")
+                    //val canti = snapshot.child("cantidad").value.toString()
+                    cantidad = snapshot.child("cantidad").value.toString()
+                    aguasumatoria.setText(cantidad + " / 3700 ml")
                 }
             }
             override fun onCancelled(error: DatabaseError) {}

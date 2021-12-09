@@ -33,7 +33,7 @@
 
         <ImageView
             android:id="@+id/iv_vaso_cantidad"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/vv"/>
@@ -42,7 +42,7 @@
             android:id="@+id/aguaselecionada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:text="0 ml"
             android:textColor="@color/white"
             android:textAlignment="center"
@@ -51,7 +51,7 @@
             android:id="@+id/aguasumatoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:text=""
             android:textColor="@color/white"
             android:textAlignment="center"
