@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import molina.raul.aquareminder2.R
 import android.annotation.SuppressLint
 import android.os.Handler
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -24,6 +25,11 @@ import java.lang.Exception
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.database.DatabaseError
+
+import com.google.firebase.database.DataSnapshot
+
+import com.google.firebase.database.ValueEventListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     var total: Int = 0
     var totalS: String? = "total"
     var agua: Int = 0
+    var fdb = FirebaseDatabase.getInstance().getReference()
 
     val date = Date()
     val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
@@ -42,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     val diaActual = dateFormatDay.format(date)
     val fechaActual = dateFormat.format(date)
     val stringFechaActual: String = diaActual
+    val path: String = "Consumo " + stringFechaActual
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         //aguasumatoria.setText("0 / 2000 ml")
 
         actualizarConsumo()
+        Toast.makeText(this, path, Toast.LENGTH_SHORT).show()
 
         iv_vaso_cantidad.setOnClickListener {
             val popMenu = PopupMenu(this, iv_vaso_cantidad)
@@ -92,9 +101,12 @@ class MainActivity : AppCompatActivity() {
             cuenta += agua
             //resta el excedente xd
             total = (cuenta + agua) - agua
-            aguasumatoria.setText("$total / 2000 ml")
+            aguasumatoria.setText("$total / 3700 ml")
+
+            actualizarVaso()
             storeDatetoFirebase()
         }
+
     }
 
     fun menu() {
@@ -161,25 +173,27 @@ class MainActivity : AppCompatActivity() {
                 handler
                 handler.postDelayed(this, 1000)
                 try {
-                   /* val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
-                    //val dt = SimpleDateFormat("yyyy-MM-dd")
-                    //val stringdate: String = dt.format(newDate)
-                    //println("Submission Date: $stringdate")
-                    //val calendar = Calendar.getInstance()
-                    //calendar.setTime(date)
-                    //val dia: String = calendar.add(Calendar.DAY_OF_YEAR, 1).toString()
-                    var aux : Int = 0*/
+                    /* val newDate = Date(date.getTime() + 604800000L * 2 + 24 * 60 * 60)
+                     //val dt = SimpleDateFormat("yyyy-MM-dd")
+                     //val stringdate: String = dt.format(newDate)
+                     //println("Submission Date: $stringdate")
+                     //val calendar = Calendar.getInstance()
+                     //calendar.setTime(date)
+                     //val dia: String = calendar.add(Calendar.DAY_OF_YEAR, 1).toString()
+                     var aux : Int = 0*/
 
                     //obtencion de la fecha de Firebase
-                    val fechaCom = FirebaseDatabase.getInstance().reference.child("Consumo").child("fecha")
+                    val fechaCom =
+                        FirebaseDatabase.getInstance().reference.child("Consumo").child("fecha")
                     //comparacion entre la fecha que guardada con la fecha actual
-                    if(fechaCom == dateFormat){
+                    if (fechaCom == dateFormat) {
                         //si es el mismo dia solo actualiza la cantidad
                         ActualizarFirebaseDiaActual()
-                    }else{
+                    } else {
                         //si la fecha es diferente la tabla guardara un nuevo dia
                         val databaseReference: DatabaseReference =
-                            FirebaseDatabase.getInstance().getReference().child("Consumo " + "$stringFechaActual")
+                            FirebaseDatabase.getInstance().getReference()
+                                .child("Consumo " + "$stringFechaActual")
                         databaseReference.child("cantidad").setValue("$total")
                         databaseReference.child("fecha").setValue(fechaActual)
                     }
@@ -191,15 +205,66 @@ class MainActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable, 1 * 1000)
     }
-    fun ActualizarFirebaseDiaActual(){
+
+    fun ActualizarFirebaseDiaActual() {
         val databaseReference: DatabaseReference =
             FirebaseDatabase.getInstance().getReference().child("Consumo ")
         databaseReference.child("cantidad").setValue("$total")
     }
-    fun actualizarConsumo(){
-        val consumoFirebase = FirebaseDatabase.getInstance().reference.child("Consumo").child("cantidad")
-        aguasumatoria.setText("$consumoFirebase / 2000 ml")
+
+    fun actualizarConsumo() {
+        fdb.child(path).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val canti = snapshot.child("cantidad").value.toString()
+                    aguasumatoria.setText(canti + " / 3700ml")
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+
     }
 
+    fun actualizarVaso(){
+        when(total >= 0) {
+            total >= 528.58 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v1)
+                Toast.makeText(this, "Muy bien", Toast.LENGTH_SHORT).show()
+            }
+            total >= 1057.16 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v2)
+                Toast.makeText(this, "Sigue así", Toast.LENGTH_SHORT).show()
+            }
+            total >= 1585.74 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v3)
+                Toast.makeText(this, "Vamos", Toast.LENGTH_SHORT).show()
+            }
+            total >= 2114.32 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v4)
+                Toast.makeText(this, "Sigue así", Toast.LENGTH_SHORT).show()
+            }
+            total >= 2642.9 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v5)
+                Toast.makeText(this, "Muy bien", Toast.LENGTH_SHORT).show()
+            }
+            total >= 3171.48 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v6)
+                Toast.makeText(this, "Un poco mas", Toast.LENGTH_SHORT).show()
+            }
+            total >= 3550 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.v7)
+                Toast.makeText(this, "Ya casi", Toast.LENGTH_SHORT).show()
+            }
+            total == 3700 -> {
+                iv_vaso_cantidad.setImageResource(R.drawable.vll)
+                Toast.makeText(this, "Excelente", Toast.LENGTH_SHORT).show()
+            }
+            total > 4000 -> {
+                Toast.makeText(this, "Cuidado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
 
 }
